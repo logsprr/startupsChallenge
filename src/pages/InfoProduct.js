@@ -16,8 +16,8 @@ const InfoProduct = ({ route, navigation }) => {
     }, [product])
 
     const purchaseProduct = () => {
-        for (const key in productsState.data) {
-            if (productsState.data[key].id == product.id) {
+        for (const key in productsState.dataCart) {
+            if (productsState.dataCart[key].id == product.id) {
                 Alert.alert('Produto', 'Já adicionado')
                 return;
             }
@@ -36,8 +36,8 @@ const InfoProduct = ({ route, navigation }) => {
         navigation.navigate('Cart')
     }
     const addToCart = () => {
-        for (const key in productsState.data) {
-            if (productsState.data[key].id == product.id) {
+        for (const key in productsState.dataCart) {
+            if (productsState.dataCart[key].id == product.id) {
                 Alert.alert('Produto', 'Já adicionado')
                 return;
             }

@@ -4,6 +4,7 @@ export const ListTypesRequest = {
     LOAD_UPDATE_PRODUCT: "@product/update",
     LOAD_REMOVE_PRODUCT: "@product/delete",
     LOAD_ALL_PRODUCTS: "@product/get",
+    LOAD_ALL_PRODUCTS_SUCCESS: "@product/success/get",
     LOAD_FAILURE: "@product/failure",
     LOAD_CLEAN: "@product/clean"
 }

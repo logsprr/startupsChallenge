@@ -7,29 +7,19 @@ import { updateProduct, deleteProduct } from '../store/modules/Products/Products
 const CartProductItem = (props) => {
     const dispatch = useDispatch();
     const updtProduct = (type) => {
-        for (const key in props.productsState.data) {
-            console.log(props.productsState)
-            if (props.productsState.data[key].id == props.item.id) {
-                props.productsState.data[key].qtd = type == 'm' ? props.productsState.data[key].qtd + 1 : props.productsState.data[key].qtd - 1
-                props.productsState.data[key].priceTotal = type == 'm' ? props.productsState.data[key].priceTotal
-                    + props.productsState.data[key].price : props.productsState.data[key].priceTotal - props.productsState.data[key].price;
-                dispatch(updateProduct(props.productsState.data))
-            }
-        }
+        props.productsState.dataCart[props.index].qtd = type == 'm' ? props.productsState.dataCart[props.index].qtd + 1 : props.productsState.dataCart[props.index].qtd - 1
+        props.productsState.dataCart[props.index].priceTotal = type == 'm' ? props.productsState.dataCart[props.index].priceTotal
+            + props.productsState.dataCart[props.index].price : props.productsState.dataCart[props.index].priceTotal - props.productsState.dataCart[props.index].price;
+        dispatch(updateProduct(props.productsState.dataCart))
     }
     const removeProduct = () => {
-        console.log(props)
-        for (const key in props.productsState.data) {
-            if (props.productsState.data[key].id == props.item.id) {
-                props.productsState.data.splice(key, 1);
-                dispatch(deleteProduct(props.productsState.data))
-            }
-        }
+        props.productsState.dataCart.splice(props.index, 1);
+        dispatch(deleteProduct(props.productsState.dataCart))
     }
     return (
         <View style={{
             flexDirection: 'row', alignItems: 'center', borderBottomColor: '#ddd', borderBottomWidth:
-                props.productsState.data[props.productsState.data.length - 1].id == props.item.id ? 0 : 1
+                props.productsState.dataCart[props.productsState.dataCart.length - 1].id == props.item.id ? 0 : 1
         }}>
             <Image source={{ uri: props.item.image }} style={{ width: '30%', height: 100, margin: 2 }} />
             <View style={{ flexDirection: 'column', width: '70%' }}>

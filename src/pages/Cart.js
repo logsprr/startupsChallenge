@@ -12,7 +12,7 @@ const Cart = ({ navigation }) => {
         productsState: state.products,
     }));
     React.useEffect(() => {
-        if (productsState.data.length > 0) {
+        if (productsState.dataCart.length > 0) {
             setLoading(false)
         } else {
             setLoading(false)
@@ -29,16 +29,16 @@ const Cart = ({ navigation }) => {
     }
     if (loading) {
         return (<Loading />)
-    } else if (productsState.data.length == 0) {
+    } else if (productsState.dataCart.length == 0) {
         return (<View style={{ justifyContent: 'center', flex: 1, alignItems: 'center' }}><Text>Não há produtos</Text></View>)
     }
     else {
         return (
             <View style={{ flex: 1, justifyContent: 'flex-start', margin: 10 }}>
                 <FlatList
-                    data={productsState.data}
+                    data={productsState.dataCart}
                     keyExtractor={(item, index) => item.id.toString()}
-                    renderItem={({ item }) => <CartProductItem productsState={productsState} item={item} />}
+                    renderItem={({ item, index }) => <CartProductItem productsState={productsState} item={item} index={index} />}
                     ListFooterComponent={() => {
                         return (
                             <View style={{ alignItems: 'center', borderBottomWidth: 1, borderBottomColor: '#ddd' }}>

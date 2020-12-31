@@ -1,9 +1,9 @@
-import { createStore } from "redux";
+import { applyMiddleware, createStore, como } from "redux";
 import { persistStore, persistReducer } from 'redux-persist';
-import { offlineMiddleware, consumeActionMiddleware } from 'redux-offline-queue';
-import { AsyncStorage } from 'react-native';
+import createSagaMiddleware from 'redux-saga';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import rootReducer from "./modules/indexReducer";
-import { REHYDRATE } from 'redux-persist'
+import rootSaga from './modules/indexSaga';
 //
 const persistConfig = {
     key: 'root',
@@ -11,25 +11,18 @@ const persistConfig = {
     blacklist: ['offline']
 }
 //
-const middlewares = [];
-
-
+let sagaMiddleware = createSagaMiddleware();
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 //
-
-middlewares.push(offlineMiddleware({
-    additionalTriggers: REHYDRATE,
-}));
-//
-
-
-middlewares.push(consumeActionMiddleware());
-//
 const store = createStore(
-    persistedReducer
+    persistedReducer,
+    applyMiddleware(
+        sagaMiddleware
+    )
 );
 
+sagaMiddleware.run(rootSaga);
 
 const persistor = persistStore(store);
 export { store, persistor };
