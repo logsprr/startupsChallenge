@@ -18,6 +18,8 @@ export default function Products(state = INITIAL_STATE, action) {
             return { ...state, dataCart: action.payload.data, message: 'Atualizado', error: false, loading: false };
         case ListTypesRequest.LOAD_REMOVE_PRODUCT:
             return { ...state, dataCart: action.payload.data, message: 'Deletado', error: false, loading: false, totalProducts: state.totalProducts - 1 };
+        case ListTypesRequest.LOAD_ALL_PRODUCTS:
+            return { ...state, loading: true }
         case ListTypesRequest.LOAD_ALL_PRODUCTS_SUCCESS:
             return { ...state, loading: false, message: 'Carregados', error: false, dataProducts: action.payload.data }
         case ListTypesRequest.LOAD_FAILURE:

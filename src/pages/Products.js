@@ -17,7 +17,9 @@ const Products = ({ navigation }) => {
         callProducts();
     }, [])
 
-    console.log(productsState)
+    const onRefresh = () => {
+        dispatch({ type: ListTypesRequest.LOAD_ALL_PRODUCTS })
+    }
     if (productsState.dataProducts.length == 0) {
         return (<Loading />)
     } else {
@@ -29,6 +31,9 @@ const Products = ({ navigation }) => {
                     useNativeDriver
                     keyExtractor={(item, index) => item.id.toString()}
                     renderItem={({ item }) => <ProductItem item={item} navigation={navigation} />}
+                    onRefresh={() => onRefresh()}
+                    refreshing={productsState.loading}
+
                 />
             </View>
         )
